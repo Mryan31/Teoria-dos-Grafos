@@ -1,0 +1,4 @@
+n=6 m=7 grau_medio(G)=2.333
+removidos (vertice:grau): nenhum
+H = 1 2 3 4 5 6     |E(H)|=7
+grau_medio(H)=2.333  delta(H)=2

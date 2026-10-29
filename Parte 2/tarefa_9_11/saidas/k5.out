@@ -1,0 +1,7 @@
+kappa 4
+lambda 4
+delta 4
+aresta 0 1: valor 4
+  caminhos: 0-1 | 0-2-1 | 0-3-1 | 0-4-1
+  corte: 0-1 0-2 0-3 0-4
+vertice 0 1: adjacentes (sem separador)

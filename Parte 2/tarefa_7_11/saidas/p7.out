@@ -1,0 +1,5 @@
+tamanho 3
+M 0-0 1-1 2-2
+RA a0 a1 a2 a3
+RB b0 b1 b2
+K b0 b1 b2

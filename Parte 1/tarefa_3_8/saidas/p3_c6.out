@@ -1,0 +1,4 @@
+ordem: 2 3 1
+pai: 3->2 1->2
+phi: 1->5 2->4 3->3
+livres por passo (i=2..t): 2 1

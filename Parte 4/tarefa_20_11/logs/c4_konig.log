@@ -1,0 +1,8 @@
+INS 0 0 1
+COR 0 1
+INS 1 1 2
+COR 1 2
+INS 2 2 3
+COR 2 1
+INS 3 3 0
+COR 3 2

@@ -1,0 +1,4 @@
+ordem: 1 4 3 2
+pai: 4->1 3->1 2->1
+FALHA no passo i=3 (u=3): nenhum vizinho livre
+livres por passo (i=2..t): 1 0

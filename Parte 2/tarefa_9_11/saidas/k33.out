@@ -1,0 +1,9 @@
+kappa 3
+lambda 3
+delta 3
+aresta 0 1: valor 3
+  caminhos: 0-3-1 | 0-4-1 | 0-5-1
+  corte: 0-3 0-4 0-5
+vertice 0 1: valor 3
+  caminhos: 0-3-1 | 0-4-1 | 0-5-1
+  separador: 3 4 5

@@ -1,0 +1,5 @@
+entrada: 3 3 3 1
+NAO GRAFICA
+passo 0: 3 3 3 1
+passo 1: 2 2 0
+obstrucao: passo 1, entrada negativa (vertice 4)

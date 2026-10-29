@@ -1,0 +1,4 @@
+entrada: 1
+NAO GRAFICA
+passo 0: 1
+obstrucao: passo 0, r >= n (r=1, n=1)

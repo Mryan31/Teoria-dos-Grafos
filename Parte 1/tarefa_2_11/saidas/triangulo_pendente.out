@@ -1,0 +1,4 @@
+n=4 m=4 grau_medio(G)=2.000
+removidos (vertice:grau): 4:1
+H = 1 2 3     |E(H)|=3
+grau_medio(H)=2.000  delta(H)=2

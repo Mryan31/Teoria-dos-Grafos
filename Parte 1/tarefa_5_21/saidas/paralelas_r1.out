@@ -1,0 +1,4 @@
+passo 1: S={1} corte=[e1(1-2,5) e2(1-2,3)] escolhida=e2(1-2,3)
+passo 2: S={1,2} corte=[e3(2-3,4) e4(2-3,4)] escolhida=e3(2-3,4)
+arvore: e2 e3   peso=7
+arvores geradoras: 4   MSTs: 2 (peso 7)   verificacao: OK

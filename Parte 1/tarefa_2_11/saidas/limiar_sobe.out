@@ -1,0 +1,4 @@
+n=7 m=12 grau_medio(G)=3.429
+removidos (vertice:grau): 2:0 6:2
+H = 1 3 4 5 7     |E(H)|=10
+grau_medio(H)=4.000  delta(H)=4
