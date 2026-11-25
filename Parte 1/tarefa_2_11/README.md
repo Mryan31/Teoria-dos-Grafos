@@ -57,7 +57,10 @@ No fim, o programa confere com `assert` que δ(H)·|H| > m_H e que m_H/|H| ≥ m
   (#1, #2, ...); caudas e pendentes saem primeiro.
 - `densidade.png`: no caso "limiar sobe", m_F/n_F só sobe, e o grau de cada removido fica
   abaixo da curva ou sobre ela.
-- `tempo_nucleo.png`: a inclinação medida foi **1,23** (esperado ≈ 1, O((n+m) log n)).
+- `tempo_nucleo.png`: com n de 2000 a 64000 (m = 3n) e o menor tempo de 5 execuções, a
+  inclinação medida foi **1,36**. A cota é O((n+m) log n); o que sobra acima de 1 vem do
+  fator log do heap e do custo de memória do Python com listas grandes, e varia um pouco
+  de uma rodada para outra (entre 1,3 e 1,4 nas minhas).
 
 ## Saídas
 

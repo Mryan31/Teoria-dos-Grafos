@@ -88,7 +88,9 @@ def fig3():
         NM.append(n + len(Eg))
         OPS.append(ops + n)
     a, _ = np.polyfit(np.log(NM), np.log(T), 1)
-    print(f"fig3: guloso {c}, m/2 = {len(E) / 2}, {acima} de 5000 aleatorias >= guloso; expoente do tempo {a:.2f}")
+    razao = [o / x for o, x in zip(OPS, NM)]
+    print(f"fig3: guloso {c}, m/2 = {len(E) / 2}, {acima} de 5000 aleatorias >= guloso; expoente do tempo {a:.2f}; "
+          f"operacoes / (n + m) entre {min(razao):.3f} e {max(razao):.3f}")
     ax[1].loglog(NM, T, "o-", label=f"medido, expoente {a:.2f}")
     ax[1].loglog(NM, [T[0] * x / NM[0] for x in NM], ":", label="inclinacao 1")
     ax[1].set(xlabel="n + m", ylabel="s", title="tempo (m = 3n)")

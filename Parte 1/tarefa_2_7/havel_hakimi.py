@@ -68,9 +68,13 @@ def main():
         print("uso: python havel_hakimi.py entradas/arquivo.txt")
         return
     caminho = sys.argv[1]
-    with open(caminho) as arq:
-        d = [int(x) for x in arq.read().split()]
-    res = havel_hakimi(d)
+    try:
+        with open(caminho) as arq:
+            d = [int(x) for x in arq.read().split()]
+        res = havel_hakimi(d)
+    except ValueError as erro:
+        print(f"ERRO: {erro}")
+        sys.exit(1)
     if res[0]:
         # confere a realizacao antes de imprimir
         E = res[1]

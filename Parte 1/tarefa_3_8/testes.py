@@ -87,6 +87,7 @@ def teste_tabela():
     G = nx.Graph([(1, 2), (2, 3), (3, 4), (4, 5)])
     T = nx.Graph(EST)
     existe = nx.isomorphism.GraphMatcher(G, T).subgraph_is_monomorphic()
+    assert not existe      # o caminho tem grau maximo 2, nao cabe a estrela
     print("tabela ok (13 linhas); caso violado: existe alguma copia da estrela no caminho?", existe)
 
 
@@ -110,13 +111,13 @@ def teste_exaustivo():
                     assert nx.is_connected(H)
                 for n in (t, t + 1, t + 2):
                     GE = grafo_com_grau_minimo(n, t - 1, rng)
-                    x = rng.randint(1, n)
-                    phi, o, p, livres = imersao(t, TE, r, n, GE, x)
-                    assert phi is not None
-                    verifica_imersao(t, TE, r, n, GE, x, phi)
-                    for i, l in enumerate(livres, start=2):
-                        assert l >= t - i + 1          # folga da prova
-                    combinacoes += 1
+                    for x in range(1, n + 1):          # todo x, como pede o enunciado
+                        phi, o, p, livres = imersao(t, TE, r, n, GE, x)
+                        assert phi is not None
+                        verifica_imersao(t, TE, r, n, GE, x, phi)
+                        for i, l in enumerate(livres, start=2):
+                            assert l >= t - i + 1          # folga da prova
+                        combinacoes += 1
     assert contagens == [1, 1, 3, 16, 125, 1296], contagens
     print(f"exaustivo t<=6 ok: arvores {contagens}, {combinacoes} combinacoes")
 

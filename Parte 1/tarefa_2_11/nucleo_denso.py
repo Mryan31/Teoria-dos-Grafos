@@ -64,7 +64,7 @@ def main():
     caminho = sys.argv[1]
     n, arestas = ler_grafo(caminho)
     m = len(arestas)
-    linhas = [f"n={n} m={m} grau_medio(G)={2 * m / n:.3f}"]
+    linhas = [f"n={n} m={m} grau_medio(G)={2 * m / n if n else 0:.3f}"]
     try:
         H, mH, log = nucleo(n, arestas)
     except ValueError as e:

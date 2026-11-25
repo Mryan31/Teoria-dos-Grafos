@@ -13,7 +13,8 @@ python graficos.py        # grava figuras/fig1_petersen.png, fig2_esperanca.png,
 
 Vértices 0..n−1. Primeira linha `n m`, depois `m` linhas `u v`. Arestas paralelas são
 aceitas (cada uma conta no corte); laço dá `ERRO laco` e código de saída 1, porque um laço
-nunca está no corte e aí a cota m/2 não vale.
+nunca está no corte e aí a cota m/2 não vale. Arquivo mal formado ou vértice fora de
+0..n−1 dá `ERRO entrada ...`, também com código 1.
 
 ```
 entrada            saída (-v)
@@ -31,13 +32,14 @@ Com `-v`, a linha `esperanca` traz E[corte | fixados] depois de fixar 0, 1, ...,
 
 - Listas de adjacência `adj[v]` (com repetição se houver paralelas).
 - Os vértices são fixados na ordem 0..n−1 (`corte_guloso` aceita outra `ordem`). Para v,
-  percorre `adj[v]` contando quantos vizinhos já fixados estão em cada lado (c0, c1) e põe
-  v no lado oposto à maioria: lado 1 se c0 > c1, senão lado 0 (empate vai pro 0).
+  percorre `adj[v]` contando quantas arestas de v vão para vértices já fixados em cada
+  lado (c0, c1; com paralelas, cada aresta conta) e põe v no lado oposto à maioria:
+  lado 1 se c0 > c1, senão lado 0 (empate fica no 0).
 - Mantém dois contadores: `garantidas` (arestas com as duas pontas fixas em lados
   diferentes) e `abertas` (arestas com pelo menos uma ponta livre). Ao fixar v, as
   c0 + c1 arestas para vizinhos fixos fecham; as que foram para o outro lado entram em
   `garantidas`.
-- A esperança condicional é `garantidas + abertas/2`. Guardo o dobro dela (`E2`) pra ficar
+- A esperança condicional é `garantidas + abertas/2`. Guardo o dobro dela (`E2`) para ficar
   em inteiro, e um `assert` confere que ela nunca cai.
 - No fim todo mundo está fixo, abertas = 0 e a esperança é o próprio corte. O `main`
   recalcula o corte direto da lista de arestas (`tamanho_corte`) e confere 2·corte ≥ m.
@@ -57,11 +59,12 @@ Com F = ∅ isso é m/2, que é a prova original do corte.
 
 **(b) Uma das escolhas não diminui.** A moeda do próximo vértice v é honesta e independente,
 então E[corte | F] = ½ E[corte | F, v → 0] + ½ E[corte | F, v → 1], e o maior dos dois é
-≥ E[corte | F]. Pra ver qual: sejam c_s os vizinhos de v já fixados no lado s. Ao pôr v no
+≥ E[corte | F]. Para ver qual: seja c_s o número de arestas de v para vértices já fixados no lado s
+(com paralelas, contadas com multiplicidade). Ao pôr v no
 lado s, as arestas de v para vizinhos livres continuam valendo ½; as c_{1−s} para o outro
 lado passam de ½ para 1; as c_s para o mesmo lado passam de ½ para 0. A variação é
 (c_{1−s} − c_s)/2, que é ≥ 0 exatamente quando c_{1−s} ≥ c_s, isto é, quando v vai para
-o lado oposto à maioria dos vizinhos já posicionados.
+o lado oposto à maioria dos vizinhos já posicionados (contando arestas).
 
 Como a esperança começa em m/2 e nunca cai, quando todos estão fixos ela vale o corte
 (sem moedas, a esperança é o próprio valor), e então corte ≥ m/2.
@@ -90,10 +93,11 @@ exatamente 2m.
 | sem_arestas | 0 | 0 | 0 0 0 0 | 0 0 0 0 0 | 0 | sim |
 | p4_ordem_ruim (0-2-3-1) | 3 | 2 | 0 0 1 0 | 3 3 3 4 4 | 3 | sim |
 | ruim_laco | — | — | — | `ERRO laco` | — | sim |
+| ruim_fora (vértice −1) | — | — | — | `ERRO entrada vertice fora de 0..n-1` | — | sim |
 
 O "máximo" é o corte máximo por força bruta. O `p4_ordem_ruim` é um caminho 0-2-3-1: o 1
-é fixado antes de ter vizinho fixo (vai pro lado 0) e depois o 3 empata, também vai pro
-0, e a aresta 3-1 fica fora. O método garante m/2, não o ótimo.
+é fixado antes de ter vizinho fixo (fica no lado 0) e depois o 3 empata e também fica no
+lado 0, e a aresta 3-1 fica fora. O método garante m/2, não o ótimo.
 
 **Itens (a) e (b) por enumeração**: em 300 grafos aleatórios (n ≤ 8, ordem embaralhada),
 para cada prefixo fixado calculei E[corte | fixados] fazendo a média sobre todas as
@@ -135,4 +139,6 @@ aleatória foi melhor (13% delas acharam o 3).
 - `fig3_aleatorias_tempo.png`: à esquerda, histograma de 5000 partições aleatórias num
   grafo com n = 40, m = 160 (concentradas em volta de m/2 = 80); o guloso deu 111 e
   nenhuma delas chegou lá. À direita, tempo × (n + m) em log-log com m = 3n: expoente
-  medido **1,19**, perto de 1 (o desvio vem de cache/memória com listas grandes).
+  medido **1,18**, perto de 1. O número de itens examinados (n + 2m) dividido por n + m
+  ficou constante em 1,75 em todos os tamanhos, então o trabalho cresce linearmente; a
+  pequena sobra no expoente é da medição de tempo, não do algoritmo.

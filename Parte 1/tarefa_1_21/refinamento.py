@@ -76,8 +76,12 @@ def main():
         print("uso: python refinamento.py entradas/arquivo.txt")
         return
     caminho = sys.argv[1]
-    n, arestas = ler_grafo(caminho)
-    cores, rodadas, hist = refinar(n, arestas)
+    try:
+        n, arestas = ler_grafo(caminho)
+        cores, rodadas, hist = refinar(n, arestas)
+    except (ValueError, IndexError) as erro:
+        print(f"ERRO: {erro}")
+        sys.exit(1)
     texto = formata(cores, rodadas, n)
     print(texto)
 

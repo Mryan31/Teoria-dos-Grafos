@@ -6,6 +6,8 @@ import sys
 
 def turan(n, r):
     # tamanhos das partes de T_r(n) (as primeiras n % r tem uma a mais) e t_r(n)
+    # com r > n as partes que sobram ficam vazias; nao precisa criar r entradas
+    r = min(r, max(n, 1))
     q, s = divmod(n, r)
     tam = [q + 1] * s + [q] * (r - s)
     return tam, n * (n - 1) // 2 - sum(t * (t - 1) // 2 for t in tam)
@@ -135,14 +137,25 @@ def resolve(n, r, E):
 
 
 def ler(texto):
-    nums = [int(x) for x in texto.split()]
+    try:
+        nums = [int(x) for x in texto.split()]
+    except ValueError:
+        raise ValueError("formato")
+    if len(nums) < 3 or nums[0] < 0 or nums[1] < 0 or len(nums) != 3 + 2 * nums[1]:
+        raise ValueError("formato")
     n, m, r = nums[0], nums[1], nums[2]
     E = [(nums[3 + 2 * i], nums[4 + 2 * i]) for i in range(m)]
+    if any(not (0 <= x < n) for e in E for x in e):
+        raise ValueError("vertice fora de 0..n-1")
     return n, r, E
 
 
 def main():
-    n, r, E = ler(sys.stdin.read())
+    try:
+        n, r, E = ler(sys.stdin.read())
+    except ValueError as erro:
+        print(f"ERRO entrada {erro}")
+        return 1
     if r < 1:
         print("ERRO r < 1")
         return 1
@@ -165,7 +178,7 @@ def main():
     if tipo == "clique":
         print("clique " + " ".join(map(str, cert)))
     else:
-        print("turan " + " | ".join(" ".join(map(str, P)) for P in cert))
+        print(("turan " + " | ".join(" ".join(map(str, P)) for P in cert)).strip())
     return 0
 
 

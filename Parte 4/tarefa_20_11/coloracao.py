@@ -193,9 +193,16 @@ def main():
         print("uso: python coloracao.py konig|vizing [trocas.log] < g.txt")
         return 0
     modo = sys.argv[1]
-    nums = [int(x) for x in sys.stdin.read().split()]
-    n, m = nums[0], nums[1]
-    E = [(nums[2 + 2 * i], nums[3 + 2 * i]) for i in range(m)]
+    try:
+        nums = [int(x) for x in sys.stdin.read().split()]
+        n, m = nums[0], nums[1]
+        E = [(nums[2 + 2 * i], nums[3 + 2 * i]) for i in range(m)]
+    except (ValueError, IndexError):
+        print("ERRO entrada")
+        return 1
+    if any(not (0 <= x < n) for e in E for x in e):
+        print("ERRO entrada vertice fora de 0..n-1")
+        return 1
     try:
         cor, log, stats = colorir(n, E, modo)
     except ValueError as erro:

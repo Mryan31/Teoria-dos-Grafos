@@ -29,6 +29,7 @@ REJEITADAS = [
     ("ruim_c5_r2", "ERRO poucas-arestas 5 < 6"),
     ("ruim_laco", "ERRO nao-simples"),
     ("ruim_paralela", "ERRO nao-simples"),
+    ("ruim_fora", "ERRO entrada vertice fora de 0..n-1"),
 ]
 
 

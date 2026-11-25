@@ -46,19 +46,33 @@ def tamanho_corte(E, lado):
 
 
 def ler(texto):
-    nums = [int(x) for x in texto.split()]
+    try:
+        nums = [int(x) for x in texto.split()]
+    except ValueError:
+        raise ValueError("formato")
+    if len(nums) < 2 or nums[0] < 0 or nums[1] < 0 or len(nums) != 2 + 2 * nums[1]:
+        raise ValueError("formato")
     n, m = nums[0], nums[1]
-    return n, [(nums[2 + 2 * i], nums[3 + 2 * i]) for i in range(m)]
+    E = [(nums[2 + 2 * i], nums[3 + 2 * i]) for i in range(m)]
+    if any(not (0 <= x < n) for e in E for x in e):
+        raise ValueError("vertice fora de 0..n-1")
+    return n, E
 
 
 def main():
-    n, E = ler(sys.stdin.read())
+    try:
+        n, E = ler(sys.stdin.read())
+    except ValueError as erro:
+        print(f"ERRO entrada {erro}")
+        return 1
     if any(u == v for u, v in E):
         print("ERRO laco")
         return 1
     lado, E2, _ = corte_guloso(n, listas(n, E))
     c = tamanho_corte(E, lado)
-    assert 2 * c >= len(E) and 2 * c == E2[-1]
+    if 2 * c < len(E) or 2 * c != E2[-1]:      # nao deixo so no assert (python -O tira)
+        print("ERRO corte abaixo de m/2")
+        return 1
     print(f"corte {c}")
     print(f"m {len(E)}")
     print("lados " + " ".join(map(str, lado)) if lado else "lados")

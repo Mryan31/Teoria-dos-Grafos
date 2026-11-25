@@ -42,6 +42,15 @@ def edmonds_karp(n, arcos, s, t, f0=None, checar=False, trilhas=None):
         R.add_arc(u, v, c)
     valor = 0
     if f0 is not None:
+        if len(f0) != len(arcos):
+            raise ValueError(f"f0 tem {len(f0)} valores, esperado {len(arcos)}")
+        saldo = [0] * n
+        for k, (u, v, c) in enumerate(arcos):
+            saldo[u] += f0[k]
+            saldo[v] -= f0[k]
+        ruins = [v for v in range(n) if v not in (s, t) and saldo[v] != 0]
+        if ruins:
+            raise ValueError("f0 nao conserva fluxo em " + " ".join(map(str, ruins)))
         for k, (u, v, c) in enumerate(arcos):
             if not (0 <= f0[k] <= c):
                 raise ValueError("f0 nao respeita 0 <= f0 <= c")
@@ -146,7 +155,12 @@ def main():
     for caminho in arquivos:
         if len(arquivos) > 1:
             print("==", os.path.basename(caminho))
-        print(roda_arquivo(caminho))
+        try:
+            print(roda_arquivo(caminho))
+        except (ValueError, IndexError) as erro:
+            print(f"ERRO: {erro}")
+            if len(arquivos) == 1:
+                sys.exit(1)
 
 
 if __name__ == "__main__":

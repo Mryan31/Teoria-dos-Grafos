@@ -68,7 +68,8 @@ de y pelo mesmo caminho até achar a primeira base marcada. A subida é sempre v
 
 - `blossom.png`: à esquerda, a flor com M em azul, o blossom em dourado e o caminho
   aumentante em vermelho. À direita, o grafo contraído (cada valor distinto de `base` vira
-  um vértice), em que o caminho r p c t aparece.
+  um vértice, rotulado pela base), com M em azul: o blossom inteiro aparece como um único
+  vértice.
 - `petersen.png`: o emparelhamento perfeito do Petersen, |M| = 5 = n/2.
 - `tempo_loglog.png`: grafos aleatórios com m = 3n. A inclinação medida foi **1,68**,
   bem abaixo da referência n³.

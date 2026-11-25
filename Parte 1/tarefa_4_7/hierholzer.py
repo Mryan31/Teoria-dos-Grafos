@@ -55,6 +55,8 @@ def hierholzer(n, arestas, s=None, traco=None):
     m = len(arestas)
     if s is None:
         s = min(v for v in range(1, n + 1) if adj[v])
+    elif not (1 <= s <= n):
+        raise ValueError(f"vertice inicial {s} fora de 1..{n}")
     elif not adj[s]:
         raise ValueError("vertice inicial sem arestas")
     usada = [False] * (m + 1)
@@ -95,15 +97,20 @@ def main():
         print("uso: python hierholzer.py entradas/arquivo.txt [vertice_inicial]")
         return
     caminho = sys.argv[1]
-    s = int(sys.argv[2]) if len(sys.argv) > 2 else None
-    n, arestas = ler_grafo(caminho)
-    motivo = diagnostico(n, arestas)
+    try:
+        s = int(sys.argv[2]) if len(sys.argv) > 2 else None
+        n, arestas = ler_grafo(caminho)
+        motivo = diagnostico(n, arestas)
+        if motivo is None:
+            V, ids = hierholzer(n, arestas, s)
+    except (ValueError, IndexError) as erro:
+        print(f"ERRO: {erro}")
+        sys.exit(1)
     if motivo == "sem arestas":
         texto = "sem arestas: nada a percorrer"
     elif motivo is not None:
         texto = "NAO EULERIANO: " + motivo
     else:
-        V, ids = hierholzer(n, arestas, s)
         verificar(arestas, V, ids)
         texto = ("EULERIANO\nvertices: " + " ".join(map(str, V)) +
                  "\narestas: " + " ".join(map(str, ids)))

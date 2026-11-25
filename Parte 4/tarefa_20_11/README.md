@@ -18,7 +18,9 @@ Arquivos: `coloracao.py` (estado, König, Vizing), `verificador.py` (independent
 
 Entrada: `n m` e `m` linhas `u v` (vértices 0..n−1). A ordem das linhas é a ordem de
 inserção, com x = u e y₀ = v. O König aceita multigrafo bipartido (paralelas); o Vizing
-exige grafo simples; laço é sempre rejeitado (`ERRO nao-bipartido`, `ERRO nao-simples`).
+exige grafo simples. Laço é sempre rejeitado com `ERRO nao-simples` (nos dois modos);
+grafo não bipartido no König dá `ERRO nao-bipartido`; vértice fora de 0..n−1 dá
+`ERRO entrada vertice fora de 0..n-1`.
 
 ```
 paleta 2

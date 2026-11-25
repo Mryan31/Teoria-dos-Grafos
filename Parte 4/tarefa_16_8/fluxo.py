@@ -42,7 +42,7 @@ def corrigir(n, pe, cab, val, k):
         visto[s] = True
         fila = deque([s])
         t = None
-        ops = 0
+        ops = n                           # achar s e zerar visto/pai: O(n) por correcao
         while fila and t is None:
             u = fila.popleft()
             for e in inc[u]:
@@ -96,7 +96,14 @@ def ler(texto):
 
 
 def main():
-    n, k, pe, cab, val = ler(sys.stdin.read())
+    try:
+        n, k, pe, cab, val = ler(sys.stdin.read())
+    except (ValueError, IndexError):
+        print("ERRO entrada")
+        return 1
+    if any(not (0 <= v < n) for v in pe + cab):
+        print("ERRO entrada vertice fora de 0..n-1")
+        return 1
     if k < 2:
         print("ERRO k < 2")
         return 1

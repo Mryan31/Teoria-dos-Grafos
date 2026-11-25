@@ -35,8 +35,10 @@ Interfaces:
 
 A função `edmonds_karp(n, arcos, s, t, f0=None) -> (valor, f, S, log)` foi copiada da
 tarefa 6.19 para o início de `conectividade.py`, com a mesma interface e as mesmas
-entradas pareadas 2k/2k+1. A única mudança é que a cópia não usa a classe `Rede`, para
-ficar numa função só. Não existe `import` de outra pasta. Como cada arco tem o seu par de
+entradas pareadas 2k/2k+1. A cópia não usa a classe `Rede`, para ficar numa função só, e
+deixa de fora as validações da 6.19 (vértice fora do intervalo, laço, capacidade negativa,
+f0) e os parâmetros de depuração, porque aqui a rede é sempre montada pelo próprio
+programa; só o teste s ≠ t ficou. Não existe `import` de outra pasta. Como cada arco tem o seu par de
 entradas, u → v e v → u são independentes, e é isso que o modelo de arestas precisa.
 
 ## Modelagem
@@ -79,7 +81,8 @@ entradas, u → v e v → u são independentes, e é isso que o modelo de aresta
   disjuntos e o separador {2, 3}. À direita, os 3 caminhos disjuntos em arestas e o corte
   (as 3 arestas de 0). Cada separador corta cada caminho exatamente uma vez.
 - `dispersao.png`: 150 grafos aleatórios. Nenhum ponto fica abaixo da diagonal em κ × λ
-  nem em λ × δ.
+  nem em λ × δ (cada ponto leva um pequeno deslocamento igual nas duas coordenadas, só
+  para não ficarem empilhados; os que têm igualdade ficam sobre a reta).
 
 ## Saídas
 

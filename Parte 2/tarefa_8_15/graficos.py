@@ -33,13 +33,13 @@ def fig_blossom():
     nx.draw_networkx_edges(G, pos, edgelist=[tuple(e) for e in arest(mate0)], width=4,
                            edge_color="royalblue", ax=axs[0])
     nx.draw_networkx_edges(G, pos, edgelist=rec, width=2, style="dashed", edge_color="red", ax=axs[0])
-    axs[0].set_title("G: M (azul), blossom (dourado), caminho (vermelho)")
+    axs[0].set_title("G: M (azul), blossom (dourado),\ncaminho aumentante (vermelho)", fontsize=10)
     H = nx.Graph([(base[u], base[v]) for u, v in E if base[u] != base[v]])
     pH = {b: tuple(sum(pos[v][i] for v in range(n) if base[v] == b) / base.count(b) for i in (0, 1)) for b in H}
     nx.draw(H, pH, ax=axs[1], with_labels=True, node_color="lightblue", edge_color="gray")
     nx.draw_networkx_edges(H, pH, edgelist=[(base[u], base[v]) for u, v in map(tuple, arest(mate0))
                                             if base[u] != base[v]], width=4, edge_color="royalblue", ax=axs[1])
-    axs[1].set_title("contraido: o blossom virou um vertice (rotulo = base)")
+    axs[1].set_title("contraido: o blossom virou um vertice\n(rotulo = base)", fontsize=10)
     plt.savefig("figuras/blossom.png", dpi=120)
     plt.close()
 

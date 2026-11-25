@@ -35,6 +35,8 @@ Entrada ruim gera uma linha e código de saída 1:
 
 - `ERRO poucas-arestas m < t`: menos de t_r(n) arestas;
 - `ERRO nao-simples`: laço ou aresta repetida;
+- `ERRO entrada formato` ou `ERRO entrada vertice fora de 0..n-1`: arquivo mal formado
+  (o número de linhas não bate com m) ou vértice fora do intervalo;
 - `ERRO r < 1`.
 
 ## Como funciona
@@ -56,7 +58,7 @@ Entrada ruim gera uma linha e código de saída 1:
   Custo O(n²).
 - **Operação** (a prova): com a tripla (a, v, b),
   - caso 1: se d(v) < d(a), v vira cópia de a; senão, se d(v) < d(b), v vira cópia de b.
-    As arestas sobem d(a) − d(v) ≥ 1 (ou d(b) − d(v) ≥ 1);
+    O número de arestas aumenta em d(a) − d(v) ≥ 1 (ou d(b) − d(v) ≥ 1);
   - caso 2: se d(v) ≥ d(a) e d(v) ≥ d(b), a e b viram cópias de v. A primeira cópia muda
     d(v) − d(a) ≥ 0. Depois dela a não é mais vizinho de b (porque v ≁ b), então b perdeu
     uma aresta e a segunda cópia muda d(v) − (d(b) − 1) ≥ 1. No total sobe
@@ -67,7 +69,7 @@ Entrada ruim gera uma linha e código de saída 1:
 - O laço repete até `classes` não achar tripla. Aí a não adjacência é uma relação de
   equivalência e G virou multipartido completo, com as classes como partes.
 - Se houver pelo menos r + 1 partes, a clique é o menor vértice de cada uma das r + 1
-  primeiras partes, e `desfaz` volta pelas cópias de trás pra frente trocando x por y
+  primeiras partes, e `desfaz` volta pelas cópias de trás para frente trocando x por y
   sempre que a cópia x estiver na clique. No fim, um `assert` confere a clique em G.
 - Se houver no máximo r partes, `certifica_turan` confere que G é exatamente o multipartido
   completo dessas partes, com os tamanhos de T_r(n).
@@ -85,7 +87,7 @@ clique de G'. As arestas que não tocam x são as mesmas em G e G'.
   em G', ou seja, estão em N_G(y). Entre eles as arestas são as mesmas de G. Então
   Q − x + y é clique em G, com o mesmo tamanho.
 
-Fazendo isso cópia por cópia, da última pra primeira (no caso 2, primeiro desfaz a cópia
+Fazendo isso cópia por cópia, da última para a primeira (no caso 2, primeiro desfaz a cópia
 de b e depois a de a), a clique de ordem r + 1 do grafo final vira uma clique de ordem
 r + 1 em G. Escolher um vértice de cada parte dá uma clique no final, porque partes
 diferentes estão completamente ligadas.
@@ -96,8 +98,8 @@ classe não são adjacentes e de classes diferentes são, então G é multiparti
 
 **No máximo r partes ⇒ nenhuma operação e G ≅ T_r(n).** Primeiro: um multipartido
 completo com no máximo r partes tem no máximo t_r(n) arestas, e só T_r(n) chega lá.
-- Se duas partes têm tamanhos p ≥ q + 2, passar um vértice da maior pra menor muda as
-  arestas de (p − 1) − q ≥ 1.
+- Se duas partes têm tamanhos p ≥ q + 2, passar um vértice da maior para a menor aumenta o
+  número de arestas em (p − 1) − q ≥ 1.
 - Se há menos de r partes não vazias e alguma tem tamanho ≥ 2, tirar um vértice dela
   numa parte nova soma p − 1 ≥ 1 arestas.
 
@@ -135,6 +137,7 @@ C(n,2) · O(n²) = O(n⁴). O desfazer olha no máximo 2 · C(n,2) cópias com u
 | triangulo_pendente_r2 | 4, 2 | 4 / 4 | 1 (caso 1) | clique 1 2 3 | sim |
 | ruim_c5_r2 | 5, 2 | 5 / 6 | — | `ERRO poucas-arestas 5 < 6` | sim |
 | ruim_laco, ruim_paralela | 3, 1 | — | — | `ERRO nao-simples` | sim |
+| ruim_fora (aresta 0-3 com n = 3) | 3, 1 | — | — | `ERRO entrada vertice fora de 0..n-1` | sim |
 
 O `triangulo_pendente_r2` (arestas 02, 12, 13, 23) é o exemplo pequeno em que desfazer
 muda a clique: a tripla é (1, 0, 3), d(0) = 1 < d(1) = 2, então 0 vira cópia de 1 e fica

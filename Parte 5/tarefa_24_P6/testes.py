@@ -57,7 +57,9 @@ def teste_tabela():
         assert cod == 0 and saida.splitlines()[0] == f"corte {c}", saida
     cod, saida = roda("ruim_laco")
     assert cod == 1 and saida == "ERRO laco"
-    print(f"tabela ok ({len(TABELA)} casos + 1 rejeicao)")
+    cod, saida = roda("ruim_fora")
+    assert cod == 1 and saida == "ERRO entrada vertice fora de 0..n-1"
+    print(f"tabela ok ({len(TABELA)} casos + 2 rejeicoes)")
 
 
 def esperanca_bruta(n, E, lado, fixos):

@@ -96,6 +96,9 @@ def main():
     n, E = ler_grafo(sys.argv[1])
     with open(sys.argv[2]) as arq:
         linhas = arq.read().split("\n")
+    if linhas[0].startswith("ERRO"):
+        print("FALHOU: a saida e uma mensagem de erro (" + linhas[0] + ")")
+        return 1
     C = int(linhas[0].split()[1])
     cores = [int(x) for x in linhas[2].split()] if len(linhas) > 2 else []
     msg = verifica(n, E, cores, sys.argv[3], C)

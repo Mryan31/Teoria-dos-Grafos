@@ -46,7 +46,10 @@ obstrucao: passo 1, entrada negativa (vertice 5)
 - Força bruta para n ≤ 6: as sequências de graus de todos os 2^C(n,2) grafos são
   exatamente as aceitas.
 - Sensibilidade: a versão que não reordena rejeita **32** sequências gráficas com n ≤ 6,
-  a menor delas (2, 2, 1, 1). Por isso a reordenação é essencial.
+  a menor delas (2, 2, 1, 1). Sem reordenar, tirar o primeiro 2 deixa (1, 0, 1); o
+  próximo pivô 1 subtrai do 0 e aparece −1, então a sequência é rejeitada. Reordenando,
+  (1, 0, 1) vira (1, 1, 0), que dá (0, 0) e é gráfica (é o P4). Por isso a reordenação é
+  essencial: o pivô tem que descontar dos maiores graus restantes.
 - Permutar a entrada não muda a decisão, e soma ímpar nunca é gráfica.
 
 ## Figuras
@@ -60,4 +63,5 @@ obstrucao: passo 1, entrada negativa (vertice 5)
 ## Saídas
 
 Em `saidas/` está a saída de todas as entradas da tabela, incluindo as quatro sequências
-do Exemplo 2.5 e do Exercício 2.6 (`s1_ex25`, `s3_nao`, `s5_nao`, `s6_nao`).
+do Exemplo 2.5 e do Exercício 2.6: 433222 (`s1_ex25`), 543321 (`s2`), 443210 (`s3_nao`)
+e 333322 (`s4`).

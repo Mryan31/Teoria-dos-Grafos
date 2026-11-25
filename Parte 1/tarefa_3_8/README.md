@@ -50,10 +50,10 @@ antes de imprimir.
 
 - As 13 linhas da tabela, incluindo t = 1, t = 2 e o caso com a hipótese violada (estrela
   no caminho 1-2-3-4-5, que falha no passo i = 3). Nesse caso o `GraphMatcher` do networkx
-  confirma que realmente não existe cópia da estrela.
+  confirma (com `assert`) que realmente não existe cópia da estrela.
 - Exaustivo: todas as árvores rotuladas com t ≤ 6 (contagem 1, 1, 3, 16, 125, 1296),
-  todas as raízes e G aleatório com δ(G) ≥ t − 1 e n ∈ {t, t+1, t+2}. Foram 25.431
-  combinações e nenhuma falhou. Em todas valem a folga livres ≥ t − i + 1, os prefixos
+  todas as raízes, G aleatório com δ(G) ≥ t − 1 e n ∈ {t, t+1, t+2}, e todos os x de 1
+  a n. Foram 175.638 combinações e nenhuma falhou. Em todas valem a folga livres ≥ t − i + 1, os prefixos
   da ordem conexos e um único vizinho anterior igual ao pai.
 - 300 casos aleatórios conferidos com networkx (a imagem é árvore e é isomorfa a T).
 

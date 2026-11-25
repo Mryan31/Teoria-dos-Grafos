@@ -58,9 +58,12 @@ def fig_dispersao():
         n = rng.randint(4, 9)
         E = [e for e in itertools.combinations(range(n), 2) if rng.random() < 0.5]
         k, l, d = kappa_G(n, E), lambda_G(n, E), delta_G(n, E)
+        # o mesmo deslocamento nas duas coordenadas: o ponto so anda sobre a diagonal,
+        # entao kappa = lambda continua em cima da reta (com ruido independente sobraria
+        # ponto abaixo dela so por causa do ruido)
         r1, r2 = rng.uniform(-.15, .15), rng.uniform(-.15, .15)
-        pts_kl.append((k + r1, l + r2))
-        pts_ld.append((l + r1, d + r2))
+        pts_kl.append((k + r1, l + r1))
+        pts_ld.append((l + r2, d + r2))
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(9, 4))
     for ax, pts, xl, yl in ((a1, pts_kl, "kappa", "lambda"), (a2, pts_ld, "lambda", "delta")):
         ax.scatter(*zip(*pts), s=12, alpha=.6)

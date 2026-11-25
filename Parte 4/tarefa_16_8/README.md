@@ -113,5 +113,6 @@ fica determinado), em vez de testar todas as m arestas.
 - `fig2_K.png`: K em cada correção (Petersen e um aleatório com n = 30). Todos os degraus
   têm altura 2k = 10, sobre a reta de inclinação −2k, e K0 ≤ 2m(k − 1).
 - `fig3_tempo.png`: tempo × m em log-log. O expoente medido foi **1,77** (esperado entre 1
-  e 2). As operações contadas ficaram sempre abaixo de 0,007·m(n + m), ou seja, limitadas
-  pela cota.
+  e 2). As operações contadas (itens examinados na BFS mais o O(n) de cada correção para
+  achar s e zerar `visto`/`pai`) ficaram entre 0,016·m(n + m) e 0,023·m(n + m) em todos os
+  tamanhos, ou seja, limitadas pela cota.

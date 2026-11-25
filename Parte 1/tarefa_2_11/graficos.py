@@ -59,13 +59,17 @@ def fig_densidade():
 
 def fig_tempo():
     random.seed(0)
-    ns = [1000, 2000, 4000, 8000, 16000]
+    ns = [2000, 4000, 8000, 16000, 32000, 64000]
     ts = []
     for n in ns:
         E = grafo_aleatorio(n, 3)
-        t0 = time.perf_counter()
-        nucleo(n, E)
-        ts.append(time.perf_counter() - t0)
+        melhor = None
+        for _ in range(5):                 # menor de 5 execucoes, tempos curtos oscilam muito
+            t0 = time.perf_counter()
+            nucleo(n, E)
+            dt = time.perf_counter() - t0
+            melhor = dt if melhor is None else min(melhor, dt)
+        ts.append(melhor)
     a, b = np.polyfit(np.log(ns), np.log(ts), 1)
     print(f"tempo: inclinacao {a:.2f}")
     plt.figure()
